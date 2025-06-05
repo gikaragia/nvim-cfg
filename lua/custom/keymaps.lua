@@ -5,8 +5,26 @@
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+local function jump_to_diagnostic(diagnostic)
+  if diagnostic == nil then
+    return
+  end
+
+  local jump_opts = {
+    diagnostic = diagnostic,
+  }
+
+  vim.diagnostic.jump(jump_opts)
+end
+
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>qo', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>qn', function()
+  jump_to_diagnostic(vim.diagnostic.get_next {})
+end, { desc = 'Jump to [N]ext diagnostic' })
+vim.keymap.set('n', '<leader>qp', function()
+  jump_to_diagnostic(vim.diagnostic.get_prev {})
+end, { desc = 'Jump to [P]revious diagnostic' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which

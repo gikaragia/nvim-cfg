@@ -19,9 +19,11 @@ end
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>qo', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
 vim.keymap.set('n', '<leader>qn', function()
   jump_to_diagnostic(vim.diagnostic.get_next {})
 end, { desc = 'Jump to [N]ext diagnostic' })
+
 vim.keymap.set('n', '<leader>qp', function()
   jump_to_diagnostic(vim.diagnostic.get_prev {})
 end, { desc = 'Jump to [P]revious diagnostic' })

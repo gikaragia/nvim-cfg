@@ -1,4 +1,5 @@
 -- [[ Basic Keymaps ]]
+--
 --  See `:help vim.keymap.set()`
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -58,9 +59,9 @@ local function close_buffer()
 end
 
 -- Cycle through buffers
-vim.keymap.set('n', '<leader>bn', '<cmd>:bnext<CR>', { desc = 'Next buffer' })
-vim.keymap.set('n', '<leader>bp', '<cmd>:bprevious<CR>', { desc = 'Previous buffer' })
-vim.keymap.set('n', '<leader>bd', close_buffer, { desc = 'Close buffer' })
+vim.keymap.set('n', '<leader>bn', '<cmd>:bnext<CR>', { desc = '[N]ext' })
+vim.keymap.set('n', '<leader>bp', '<cmd>:bprevious<CR>', { desc = '[P]revious' })
+vim.keymap.set('n', '<leader>bd', close_buffer, { desc = '[D]elete' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })

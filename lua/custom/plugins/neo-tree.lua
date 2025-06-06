@@ -11,18 +11,15 @@ return {
   },
   lazy = false,
   keys = {
-    { '<C-i>', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<Tab>', ':Neotree toggle filesystem left<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader><leader>', ':Neotree toggle buffers float<CR>', desc = 'Toggle buffers', silent = true },
+    { '<leader>gt', ':Neotree toggle git_status float<CR>', desc = 'Toggle buffers', silent = true },
   },
-  opts = {
-    filesystem = {
-      window = {
-        mappings = {
-          ['<C-i>'] = 'close_window',
-        },
-      },
-      follow_current_file = {
-        enabled = true,
-      },
-    },
-  },
+  -- opts = {
+  --   filesystem = {
+  --     follow_current_file = {
+  --       enabled = true,
+  --     },
+  --   },
+  -- },
 }

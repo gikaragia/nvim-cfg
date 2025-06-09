@@ -62,6 +62,10 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>b', group = '[B]uffer' },
       { '<leader>t', group = '[T]oggle' },
       { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },
+      { '<leader>q', group = 'Diagnosting', mode = { 'n', 'v' } },
+      { 'g', group = '[G]o,rename' },
+      { 'z', group = 'Fold' },
+      { 's', group = 'Surrounding' },
     },
   },
 }

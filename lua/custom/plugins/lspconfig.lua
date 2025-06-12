@@ -216,7 +216,7 @@ return {
       --    https://github.com/pmizio/typescript-tools.nvim
       --
       -- But for many setups, the LSP (`ts_ls`) will work just fine
-      -- ts_ls = {},
+      ts_ls = {},
       --
 
       lua_ls = {
@@ -233,6 +233,14 @@ return {
           },
         },
       },
+    }
+
+    -- Disable TS auto formatting
+    require('lspconfig').ts_ls.setup {
+      on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end,
     }
 
     -- Ensure the servers and tools above are installed

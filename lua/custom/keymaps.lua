@@ -72,3 +72,9 @@ vim.keymap.set('n', '<Esc>', function()
   vim.cmd 'nohlsearch'
   close_floating_windows()
 end, { desc = 'Close floating window, clear search highlights' })
+
+-- Focus the hover window on K
+vim.keymap.set('n', 'K', function()
+  vim.lsp.buf.hover()
+  vim.lsp.buf.hover()
+end, { desc = 'Hover documentation' })

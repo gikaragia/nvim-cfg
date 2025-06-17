@@ -15,7 +15,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*.go',
   callback = function()
-    local params = vim.lsp.util.make_range_params()
+    local client = vim.lsp.get_clients({ buf = vim.api.nvim_win_get_buf(0) })[1]
+    local encoding = client.offset_encoding or 'utf-16'
+    local params = vim.lsp.util.make_range_params(0, encoding)
+
     params.context = { only = { 'source.organizeImports' } }
     -- buf_request_sync defaults to a 1000ms timeout. Depending on your
     -- machine and codebase, you may want longer. Add an additional

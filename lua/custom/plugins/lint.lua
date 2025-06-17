@@ -8,6 +8,7 @@ return {
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
         go = { 'golangcilint' },
+        lua = { 'luac' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -52,7 +53,14 @@ return {
           -- avoid superfluous noise, notably within the handy LSP pop-ups that
           -- describe the hovered symbol using Markdown.
           if vim.bo.modifiable then
-            lint.try_lint()
+            -- For projects that include go projects in a subdirectory, cwd needs to be specified
+            if vim.bo.filetype == 'go' then
+              local filename = vim.api.nvim_buf_get_name(0)
+              local cwd = vim.fs.root(filename, 'go.work') or vim.fs.root(filename, 'go.mod')
+              lint.try_lint('golangcilint', { cwd = cwd })
+            else
+              lint.try_lint()
+            end
           end
         end,
       })

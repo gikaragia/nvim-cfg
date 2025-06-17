@@ -205,7 +205,6 @@ return {
     local servers = {
       -- clangd = {},
       gopls = {
-        root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
         settings = {
           gopls = {
             analyses = {
@@ -217,6 +216,7 @@ return {
       },
       -- pyright = {},
       rust_analyzer = {},
+      protols = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
       -- Some languages (like typescript) have entire language plugins that can be useful:

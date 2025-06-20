@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
     if autosave_timer.is_active(autosave_timer) then
       autosave_timer.again(autosave_timer)
     else
-      autosave_timer.start(autosave_timer, 500, 500, timeout)
+      autosave_timer.start(autosave_timer, 1000, 1000, timeout)
     end
   end,
 })

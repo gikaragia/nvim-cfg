@@ -9,6 +9,7 @@ return {
         markdown = { 'markdownlint' },
         go = { 'golangcilint' },
         lua = { 'luac' },
+        rust = { 'clippy' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,

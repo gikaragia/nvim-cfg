@@ -25,6 +25,11 @@ vim.keymap.set('n', '<leader>qp', function()
   jump_to_diagnostic(vim.diagnostic.get_prev {})
 end, { desc = 'Jump to [P]revious diagnostic' })
 
+vim.keymap.set('n', '<leader>qf', function()
+  vim.diagnostic.open_float()
+  vim.diagnostic.open_float()
+end, { desc = 'Open diagnostic [F]loat window' })
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --

@@ -157,7 +157,7 @@ return {
         border = 'rounded',
         source = 'if_many',
         format = function(diagnostic)
-          return diagnostic.user_data.rendered
+          return (diagnostic.user_data and diagnostic.user_data.rendered) or diagnostic.message
         end,
       },
       underline = { severity = vim.diagnostic.severity.ERROR },

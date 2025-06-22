@@ -1,3 +1,43 @@
+local severities = {
+  note = vim.diagnostic.severity.INFO,
+  warning = vim.diagnostic.severity.WARN,
+  help = vim.diagnostic.severity.HINT,
+}
+
+local function parse(diagnostics, file_name, item)
+  local project_root
+  if item.spans[1] then
+    project_root = (vim.fs.root(item.spans[1].file_name, 'Cargo.toml') or vim.fs.root(item.spans[1].file_name, 'Cargo.lock')) .. '/'
+  end
+
+  for _, span in ipairs(item.spans) do
+    if project_root .. span.file_name == file_name then
+      local message = item.message
+      if span.suggested_replacement ~= vim.NIL then
+        message = message .. '\nSuggested replacement:\n\n' .. tostring(span.suggested_replacement)
+      end
+
+      local rendered = item.message
+      if item.rendered ~= vim.NIL then
+        rendered = item.rendered
+      end
+
+      table.insert(diagnostics, {
+        lnum = span.line_start - 1,
+        end_lnum = span.line_end - 1,
+        col = span.column_start - 1,
+        end_col = span.column_end - 1,
+        severity = severities[item.level],
+        source = 'clippy',
+        message = message,
+        user_data = {
+          rendered = rendered,
+        },
+      })
+    end
+  end
+end
+
 return {
 
   { -- Linting
@@ -43,6 +83,27 @@ return {
       -- lint.linters_by_ft['ruby'] = nil
       -- lint.linters_by_ft['terraform'] = nil
       -- lint.linters_by_ft['text'] = nil
+
+      -- Customize clippy to not show children and add extra lints
+      local clippy = lint.linters.clippy
+
+      clippy.ignore_exitcode = true
+      clippy.args = { 'clippy', '--message-format=json', '--all-features', '--', '-Wclippy::pedantic', '-Wclippy::nursery' }
+      clippy.parser = function(output, bufnr)
+        local diagnostics = {}
+        local items = #output > 0 and vim.split(output, '\n') or {}
+        local file_name = vim.api.nvim_buf_get_name(bufnr)
+        file_name = vim.fn.fnamemodify(file_name, ':p')
+
+        for _, i in ipairs(items) do
+          local item = i ~= '' and vim.json.decode(i) or {}
+          -- cargo also outputs build artifacts messages in addition to diagnostics
+          if item and item.reason == 'compiler-message' then
+            parse(diagnostics, file_name, item.message)
+          end
+        end
+        return diagnostics
+      end
 
       -- Create autocommand which carries out the actual linting
       -- on the specified events.

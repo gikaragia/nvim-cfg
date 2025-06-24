@@ -49,17 +49,24 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
       return
     end
 
+    if vim.api.nvim_get_mode().mode ~= 'n' then
+      return
+    end
+
     local timeout = function()
-      vim.schedule(function()
-        vim.cmd 'silent w'
-      end)
+      if vim.api.nvim_get_mode().mode == 'n' then
+        vim.schedule(function()
+          vim.cmd 'silent w'
+        end)
+      end
+
       autosave_timer.stop(autosave_timer)
     end
 
     if autosave_timer.is_active(autosave_timer) then
       autosave_timer.again(autosave_timer)
     else
-      autosave_timer.start(autosave_timer, 1000, 1000, timeout)
+      autosave_timer.start(autosave_timer, 800, 800, timeout)
     end
   end,
 })

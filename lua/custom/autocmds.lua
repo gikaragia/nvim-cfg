@@ -39,34 +39,34 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 -- Enable auto save in rust
-local autosave_timer = vim.uv.new_timer()
-local autosave = vim.api.nvim_create_augroup('autosave', {})
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
-  pattern = '*.rs',
-  group = autosave,
-  callback = function()
-    if autosave_timer == nil then
-      return
-    end
-
-    if vim.api.nvim_get_mode().mode ~= 'n' then
-      return
-    end
-
-    local timeout = function()
-      if vim.api.nvim_get_mode().mode == 'n' then
-        vim.schedule(function()
-          vim.cmd 'silent w'
-        end)
-      end
-
-      autosave_timer.stop(autosave_timer)
-    end
-
-    if autosave_timer.is_active(autosave_timer) then
-      autosave_timer.again(autosave_timer)
-    else
-      autosave_timer.start(autosave_timer, 800, 800, timeout)
-    end
-  end,
-})
+-- local autosave_timer = vim.uv.new_timer()
+-- local autosave = vim.api.nvim_create_augroup('autosave', {})
+-- vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+--   pattern = '*.rs',
+--   group = autosave,
+--   callback = function()
+--     if autosave_timer == nil then
+--       return
+--     end
+--
+--     if vim.api.nvim_get_mode().mode ~= 'n' then
+--       return
+--     end
+--
+--     local timeout = function()
+--       if vim.api.nvim_get_mode().mode == 'n' then
+--         vim.schedule(function()
+--           vim.cmd 'silent w'
+--         end)
+--       end
+--
+--       autosave_timer.stop(autosave_timer)
+--     end
+--
+--     if autosave_timer.is_active(autosave_timer) then
+--       autosave_timer.again(autosave_timer)
+--     else
+--       autosave_timer.start(autosave_timer, 800, 800, timeout)
+--     end
+--   end,
+-- })

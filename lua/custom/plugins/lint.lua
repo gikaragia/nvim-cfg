@@ -84,7 +84,6 @@ return {
       -- Customize clippy to not show children and add extra lints
       local clippy = lint.linters.clippy
 
-      clippy.ignore_exitcode = true
       clippy.args = { 'clippy', '--message-format=json', '--all-features', '--', '-Wclippy::pedantic', '-Wclippy::nursery' }
       clippy.parser = function(output, bufnr)
         local diagnostics = {}
@@ -117,6 +116,14 @@ return {
               local filename = vim.api.nvim_buf_get_name(0)
               local cwd = vim.fs.root(filename, 'go.work') or vim.fs.root(filename, 'go.mod')
               lint.try_lint('golangcilint', { cwd = cwd })
+            elseif vim.bo.filetype == 'rust' then
+              local cwd = vim.fn.getcwd()
+
+              if vim.fn.filereadable(cwd .. '/Cargo.toml') == 0 and vim.fn.isdirectory(cwd .. '/crates') == 1 then
+                lint.try_lint('clippy', { cwd = cwd .. '/crates' })
+              else
+                lint.try_lint()
+              end
             else
               lint.try_lint()
             end

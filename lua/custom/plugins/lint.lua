@@ -6,20 +6,17 @@ local severities = {
 
 local function parse(diagnostics, file_name, item)
   local project_root
-  if item.spans[1] then
-    project_root = (vim.fs.root(item.spans[1].file_name, 'Cargo.toml') or vim.fs.root(item.spans[1].file_name, 'Cargo.lock')) .. '/'
-  end
 
-  for _, span in ipairs(item.spans) do
-    if project_root .. span.file_name == file_name then
-      local message = item.message
+  for _, span in ipairs(item.message.spans) do
+    if item.target.src_path == file_name then
+      local message = item.message.message
       if span.suggested_replacement ~= vim.NIL then
         message = message .. '\nSuggested replacement:\n\n' .. tostring(span.suggested_replacement)
       end
 
-      local rendered = item.message
-      if item.rendered ~= vim.NIL then
-        rendered = item.rendered
+      local rendered = item.message.message
+      if item.message.rendered ~= vim.NIL then
+        rendered = item.message.rendered
       end
 
       table.insert(diagnostics, {
@@ -27,7 +24,7 @@ local function parse(diagnostics, file_name, item)
         end_lnum = span.line_end - 1,
         col = span.column_start - 1,
         end_col = span.column_end - 1,
-        severity = severities[item.level],
+        severity = severities[item.message.level],
         source = 'clippy',
         message = message,
         user_data = {
@@ -99,7 +96,7 @@ return {
           local item = i ~= '' and vim.json.decode(i) or {}
           -- cargo also outputs build artifacts messages in addition to diagnostics
           if item and item.reason == 'compiler-message' then
-            parse(diagnostics, file_name, item.message)
+            parse(diagnostics, file_name, item)
           end
         end
         return diagnostics

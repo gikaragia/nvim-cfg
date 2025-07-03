@@ -8,7 +8,7 @@ local function parse(diagnostics, file_name, item)
   local project_root
 
   for _, span in ipairs(item.message.spans) do
-    if item.target.src_path == file_name then
+    if file_name:sub(-#span.file_name) == span.file_name then
       local message = item.message.message
       if span.suggested_replacement ~= vim.NIL then
         message = message .. '\nSuggested replacement:\n\n' .. tostring(span.suggested_replacement)

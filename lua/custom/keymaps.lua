@@ -83,3 +83,15 @@ vim.keymap.set('n', 'K', function()
   vim.lsp.buf.hover()
   vim.lsp.buf.hover()
 end, { desc = 'Hover documentation' })
+
+local function rust_open_docs()
+  vim.lsp.buf_request(vim.api.nvim_get_current_buf(), 'experimental/externalDocs', vim.lsp.util.make_position_params(), function(err, url)
+    if err then
+      error(tostring(err))
+    else
+      vim.fn['netrw#BrowseX'](url, 0)
+    end
+  end)
+end
+
+vim.keymap.set('n', 'grx', rust_open_docs, { desc = 'Open documentation for the symbol under the cursor' })

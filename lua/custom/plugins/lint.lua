@@ -84,6 +84,7 @@ return {
       -- Customize clippy to not show children and add extra lints
       local clippy = lint.linters.clippy
 
+      clippy.ignore_exitcode = true
       clippy.args = { 'clippy', '--message-format=json', '--all-features', '--', '-Wclippy::pedantic', '-Wclippy::nursery' }
       clippy.parser = function(output, bufnr)
         local diagnostics = {}

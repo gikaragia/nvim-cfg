@@ -84,6 +84,7 @@ vim.keymap.set('n', 'K', function()
   vim.lsp.buf.hover()
 end, { desc = 'Hover documentation' })
 
+-- Rust open documentation in browser
 local function rust_open_docs()
   vim.lsp.buf_request(vim.api.nvim_get_current_buf(), 'experimental/externalDocs', vim.lsp.util.make_position_params(), function(err, url)
     if err then

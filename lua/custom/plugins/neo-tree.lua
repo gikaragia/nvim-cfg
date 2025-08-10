@@ -21,4 +21,16 @@ return {
       },
     },
   },
+  config = function()
+    -- Search by grep under directory
+    local function search_by_grep()
+      local manager = require 'neo-tree.sources.manager'
+      local state = manager.get_state 'filesystem'
+      local node = state.tree:get_node()
+      local path = node:get_id()
+      require('telescope.builtin').live_grep { search_dirs = { path } }
+    end
+
+    vim.keymap.set('n', '<leader>sG', search_by_grep, { desc = '[S]earch by [G]rep under directory' })
+  end,
 }

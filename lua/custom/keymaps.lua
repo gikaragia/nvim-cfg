@@ -56,8 +56,8 @@ vim.keymap.set('n', '<leader>bd', close_buffer, { desc = '[D]elete' })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
-vim.keymap.set('n', '<CR>', 'o<Esc>', { desc = 'New line on Return' })
-vim.keymap.set('n', '<S-CR>', 'O<Esc>', { desc = 'New line up on Shift Return' })
+--vim.keymap.set('n', '<CR>', 'o<Esc>', { desc = 'New line on Return' })
+--vim.keymap.set('n', '<S-CR>', 'O<Esc>', { desc = 'New line up on Shift Return' })
 
 -- Close every floating window
 local function close_floating_windows()

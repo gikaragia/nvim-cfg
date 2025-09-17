@@ -27,6 +27,11 @@ return {
 
     vim.keymap.set('n', '<leader>sG', search_by_grep, { desc = '[S]earch by [G]rep under directory' })
 
+    vim.keymap.set('n', '<M-Up>', ':resize +5<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<M-Down>', ':resize -5<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<M-Right>', ':vertical resize +5<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<M-Left>', ':vertical resize -5<CR>', { noremap = true, silent = true })
+
     require('neo-tree').setup {
       filesystem = {
         follow_current_file = {

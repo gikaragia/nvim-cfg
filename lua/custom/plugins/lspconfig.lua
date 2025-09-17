@@ -62,9 +62,9 @@ return {
           return function()
             vim.cmd 'tab split'
             execute()
-            vim.defer_fn(function()
-              vim.cmd 'Neotree show reveal_force_cwd'
-            end, 20)
+            -- vim.defer_fn(function()
+            --   vim.cmd 'Neotree show reveal_force_cwd'
+            -- end, 20)
           end
         end
         -- Rename the variable under your cursor.
@@ -77,7 +77,6 @@ return {
 
         -- Find references for the word under your cursor.
         map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-        map('gRr', in_new_tab(require('telescope.builtin').lsp_references), '[G]oto new [T]ab [R]eferences')
 
         -- Jump to the implementation of the word under your cursor.
         --  Useful when your language has ways of declaring types without an actual implementation.

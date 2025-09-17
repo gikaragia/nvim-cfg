@@ -32,6 +32,11 @@ return { -- Autoformat
       lua = { 'stylua' },
       go = { 'gofmt' },
       rust = { 'rustfmt', lsp_format = 'fallback' },
+      typescript = { 'prettierd' },
+      typescriptreact = { 'prettierd' },
+      javascript = { 'prettierd' },
+      javascriptreact = { 'prettierd' },
+
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --

@@ -11,15 +11,9 @@ return {
   lazy = false,
   keys = {
     { '<leader><Tab>', ':Neotree toggle filesystem left<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader><S-Tab>', ':Neotree show reveal_force_cwd<CR>', desc = 'NeoTree cwd reveal', silent = true },
     { '<leader><leader>', ':Neotree toggle buffers float<CR>', desc = 'Toggle buffers', silent = true },
     { '<leader>gt', ':Neotree toggle git_status float<CR>', desc = 'Toggle buffers', silent = true },
-  },
-  opts = {
-    filesystem = {
-      follow_current_file = {
-        enabled = true,
-      },
-    },
   },
   config = function()
     -- Search by grep under directory
@@ -32,5 +26,21 @@ return {
     end
 
     vim.keymap.set('n', '<leader>sG', search_by_grep, { desc = '[S]earch by [G]rep under directory' })
+
+    require('neo-tree').setup {
+      filesystem = {
+        follow_current_file = {
+          enabled = true,
+        },
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_by_name = {
+            '.DS_Store',
+            '.git',
+          },
+        },
+      },
+    }
   end,
 }

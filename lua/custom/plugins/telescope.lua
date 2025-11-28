@@ -64,6 +64,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           height = 0.6,
           width = 0.8,
         },
+        sorting_strategy = 'ascending',
         vimgrep_arguments = {
           'rg',
           '--color=never',
@@ -80,12 +81,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
         },
+        fzf = {
+          fuzzy = true, -- true: fuzzy; false: exact
+          override_generic_sorter = true, -- use fzf for everything
+          override_file_sorter = true, -- use fzf for files
+          case_mode = 'smart_case', -- or "ignore_case", "respect_case"
+        },
       },
     }
 
     -- Enable Telescope extensions if they are installed
-    pcall(require('telescope').load_extension, 'fzf')
-    pcall(require('telescope').load_extension, 'ui-select')
+    require('telescope').load_extension 'fzf'
+    require('telescope').load_extension 'ui-select'
 
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
@@ -96,8 +103,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [g]rep' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-    vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-    vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+    vim.keymap.set('n', '<leader>s.', builtin.resume, { desc = 'Resure [S]earch' })
+    vim.keymap.set('n', '<leader>sr', function()
+      builtin.oldfiles { prompt_title = 'Recent Files' }
+    end, { desc = '[S]earch [R]ecent Files' })
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()

@@ -58,6 +58,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
         -- mappings = {
         --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         -- },
+        layout_strategy = 'center',
+        layout_config = {
+          prompt_position = 'top',
+          height = 0.6,
+          width = 0.8,
+        },
         vimgrep_arguments = {
           'rg',
           '--color=never',

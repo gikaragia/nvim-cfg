@@ -36,6 +36,7 @@ return { -- Autoformat
       typescriptreact = { 'prettierd' },
       javascript = { 'prettierd' },
       javascriptreact = { 'prettierd' },
+      python = { 'ruff_format' },
 
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },

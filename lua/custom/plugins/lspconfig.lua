@@ -223,6 +223,7 @@ return {
     local util = require 'lspconfig/util'
     local servers = {
       -- clangd = {},
+      pyright = {},
       gopls = {
         settings = {
           gopls = {
@@ -289,6 +290,7 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
+      'ruff', -- Python linter and formatter
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

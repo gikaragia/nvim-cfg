@@ -55,9 +55,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
       --  All the info you're looking for is in `:help telescope.setup()`
       --
       defaults = {
-        -- mappings = {
-        --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        -- },
+        mappings = {
+          i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        },
         layout_strategy = 'center',
         layout_config = {
           prompt_position = 'top',

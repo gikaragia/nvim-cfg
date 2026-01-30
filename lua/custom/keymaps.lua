@@ -14,6 +14,9 @@ local function jump_to_diagnostic(diagnostic)
   vim.diagnostic.jump(jump_opts)
 end
 
+-- Enable Visual Block Mode with Ctrl+Q
+vim.keymap.set({ 'n', 'x' }, '<C-q>', '<C-v>', { desc = 'Enter visual block mode' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>qo', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 

@@ -220,9 +220,8 @@ return {
       client.server_capabilities.documentRangeFormattingProvider = false
     end
 
-    local util = require 'lspconfig/util'
     local servers = {
-      -- clangd = {},
+      kotlin_lsp = {},
       pyright = {},
       gopls = {
         settings = {

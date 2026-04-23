@@ -34,12 +34,13 @@ return {
 
     require('neo-tree').setup {
       filesystem = {
+        group_empty_dirs = true,
         follow_current_file = {
           enabled = true,
         },
         filtered_items = {
           hide_dotfiles = false,
-          hide_gitignored = false,
+          hide_gitignored = true,
           hide_by_name = {
             '.DS_Store',
             '.git',

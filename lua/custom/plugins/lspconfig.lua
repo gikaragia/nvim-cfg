@@ -222,6 +222,7 @@ return {
 
     local servers = {
       kotlin_lsp = {},
+      intelephense = {},
       pyright = {},
       gopls = {
         settings = {
